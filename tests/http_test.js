@@ -1,5 +1,5 @@
 const $ = require('meeko')
-let request = require('request-promise-native')
+const axios = require('axios')
 
 async function test () {
   let t = $.now()
@@ -7,10 +7,10 @@ async function test () {
   let len = txtStr.length
   let count = 1000
   for (let i = 0; i < count; i++) {
-    let r = await request({
-      uri: 'http://127.0.0.1:13000/skyapi/mock/echo',
+    await axios({
+      url: 'http://127.0.0.1:13000/skyapi/mock/echo',
       method: 'POST',
-      form: { str: txtStr }
+      data: new URLSearchParams({ str: txtStr })
     })
     //process.stdout.cursorTo(0)
     process.stdout.write($.c.xy(0, 0))

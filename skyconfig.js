@@ -87,6 +87,7 @@ module.exports = {
    * apiRegister --- 注册api，要在以上两个之后注册，因为以上两个要记录api的执行时间。一般这个都放在数组最后，因为api不会再next后续的中间件了
    * */
   middlewares: [
+    'log-context',   // 请求日志上下文，必须第一个
     'sample-middleware',
     'sky-cors',
     'sky-body-parse',

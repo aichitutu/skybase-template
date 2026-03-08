@@ -4,6 +4,7 @@ const packageJson = require('../package')
 module.exports = {
   name: packageJson.name,
   rootDir: path.join(__dirname, '../'),
+  logFormat: 'json',
   mysql: {
     host: '127.0.0.1',
     port: 3306,
@@ -79,8 +80,11 @@ module.exports = {
     '/skyapi/redirect/original': '/skyapi/redirect/to'
   },
 
+  jsonLog: false, // 生产环境设为 true，或通过 LOG_FORMAT=json 环境变量控制
+
   middlewares: [
     // 自己实现的middle 不能以 sky- 开头
+    'log-context',   // 请求日志上下文，必须第一个
     'sky-cors',
     'sky-body-parse',
     'sky-static-server',

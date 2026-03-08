@@ -1,5 +1,5 @@
 const assert = require('assert')
-const request = require('request-promise-native')
+const axios = require('axios')
 
 const wait = (msec) => new Promise(resolve => setTimeout(resolve, msec))
 
@@ -7,12 +7,8 @@ describe('接口频度限制', () => {
   describe('每秒次数限制', () => {
     it('每秒只允许两次请求成功', async () => {
       const fn = async (i) => {
-        const res = await request({
-          uri: 'http://127.0.0.1:13000/skyapi/use-limit/feqLimit',
-          method: 'get',
-          json: true
-        })
-        return res.code === 200
+        const res = await axios.get('http://127.0.0.1:13000/skyapi/use-limit/feqLimit')
+        return res.data.code === 200
       }
 
       const firsts = []
@@ -29,12 +25,8 @@ describe('接口频度限制', () => {
     it('是否只有一次能请求进去', async () => {
       const lockFn = async (i) => {
         await wait(50 - i)
-        const res = await request({
-          uri: 'http://127.0.0.1:13000/skyapi/use-limit/lock',
-          method: 'get',
-          json: true
-        })
-        return res.code === 200 && i
+        const res = await axios.get('http://127.0.0.1:13000/skyapi/use-limit/lock')
+        return res.data.code === 200 && i
       }
       const fns = []
       for (let i = 0; i < 5; i++) {
@@ -55,14 +47,10 @@ describe('接口频度限制', () => {
     })
     it('是否能自动解锁', async () => {
       for (let i = 0; i < 3; i++){
-        const res = await request({
-          uri: 'http://127.0.0.1:13000/skyapi/use-limit/lock',
-          method: 'get',
-          json: true
-        })
+        const res = await axios.get('http://127.0.0.1:13000/skyapi/use-limit/lock')
 
         console.log('当前：', i)
-        assert.strictEqual(res.code, 200)
+        assert.strictEqual(res.data.code, 200)
       }
 
     })

@@ -2,9 +2,36 @@
   "name": "skybase-template",
   "version": "0.1.86",
   "description": "fast skybase project build",
-  "main": "index.js",
+  "bin": {
+    "skybase": "./bin/create-skybase.js"
+  },
+  "files": [
+    "bin",
+    "config",
+    "lib",
+    "middleware",
+    "model",
+    "router",
+    "service",
+    "template",
+    "tests",
+    "tool",
+    "www",
+    "*.js",
+    "*.js.tpl",
+    "*.yml.tpl",
+    ".editorconfig",
+    ".eslintignore",
+    ".eslintrc",
+    ".gitignore",
+    ".istanbul.yml",
+    ".opencode",
+    "AGENTS.md",
+    "CLAUDE.md"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "test": "mocha ./tests/*.js",
     "apitest": "node ./tool/scanNoParam.js",
     "cz": "conventional-changelog -p atom -i CHANGELOG.md -s -r 0 && git add . && git status && git cz",
     "push": "npm version patch && npm publish . && git push",
@@ -31,25 +58,24 @@
   },
   "config": {
     "commitizen": {
-      "mocha": "^6.2.0",
       "path": "./node_modules/cz-jt"
     }
   },
   "dependencies": {
     "amqplib": "*",
+    "axios": "*",
+    "cz-jt": "*",
+    "https-proxy-agent": "^7.0.6",
     "ioredis": "^4.9.5",
     "j2sql2": "*",
-    "cz-jt": "*",
+    "meeko": "*",
     "mockjs": "*",
+    "mysql2": "^3.18.2",
     "skybase": "*",
     "skyrts": "*",
-    "meeko": "*",
+    "speakeasy": "*",
     "standard": "^12.0.1",
-    "axios": "*",
-    "request": "^2.88.0",
-    "request-promise-native": "^1.0.7",
-    "svg-captcha": "^1.4.0",
-    "speakeasy": "*"
+    "svg-captcha": "^1.4.0"
   },
   "standard": {
     "globals": [

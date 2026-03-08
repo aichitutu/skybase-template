@@ -1,5 +1,6 @@
 module.exports = {
   port: process.env.node_port,
+  jsonLog: true,
   mysql: {
     host: '127.0.0.1',
     port: 3306,

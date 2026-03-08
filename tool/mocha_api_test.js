@@ -2,7 +2,7 @@
 /* global describe */
 /* global it */
 const $ = require('meeko')
-const request = require('request-promise-native')
+const axios = require('axios')
 const assert = require('assert')
 const path = require('path')
 const proPath = '..'
@@ -46,16 +46,11 @@ describe('接口无参数提交', async () => {
         let url = `http://127.0.0.1:${proCnf.port || 13000}${x}`
         it(`${url}`, async () => {
           let apiObj = $.tools.objByString(apiCnf,xArr.join('.'))
-          let r = await request({
-            uri: url,
+          const r = await axios({
+            url,
             method: apiObj.method === 'all' ? 'get' : apiObj.method || 'get'
           })
-          let data
-          try{
-            data = JSON.parse(r || '{}')
-          } catch(e){
-            data={}
-          }
+          const data = r.data || {}
           assert.notStrictEqual(data.code||0, 500)
         })
 
