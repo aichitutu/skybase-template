@@ -35,7 +35,8 @@
     "apitest": "node ./tool/scanNoParam.js",
     "cz": "conventional-changelog -p atom -i CHANGELOG.md -s -r 0 && git add . && git status && git cz",
     "push": "npm version patch && npm publish . && git push",
-    "inject": "node ./tool/api-string-scan.js"
+    "inject": "node ./tool/api-string-scan.js",
+    "db:update": "node ./sql/migration.js local update 0"
   },
   "repository": {
     "type": "git",

@@ -12,6 +12,7 @@ const TEMPLATE_ROOT = path.join(__dirname, '..')
 // Directories/files to never copy into the new project
 const EXCLUDE = new Set([
   '.git',
+  '.idea',       // JetBrains IDE specific, not needed in generated projects
   'node_modules',
   'bin',
   'pnpm-lock.yaml',
@@ -23,6 +24,7 @@ const TEXT_EXTS = new Set([
   '.js', '.json', '.md', '.yml', '.yaml',
   '.html', '.css', '.txt', '.sh', '.env',
   '.tpl', '.lua', '.properties',
+  '.xml', '.iml',
 ])
 
 function isText (filePath) {
